@@ -12,11 +12,8 @@ pub mod pb {
 use std::{default, fmt, iter};
 
 pub fn trace_init() {
-    let sub = tracing_subscriber::FmtSubscriber::builder()
-        .with_env_filter(tracing_subscriber::filter::EnvFilter::from_default_env())
-        .finish();
-
-    let _ = tracing::subscriber::set_global_default(sub);
+    let filter = tracing_subscriber::filter::EnvFilter::from_default_env();
+    let _ = tracing_subscriber::fmt::fmt().with_env_filter(filter).init();
     let _ = tracing_log::LogTracer::init();
 }
 
